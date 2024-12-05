@@ -1,13 +1,12 @@
 # Advent-of-Code
-https://adventofcode.com/2024
- 
+<https://adventofcode.com/2024>
 
 | Day | Solved Part 1?     | Solved Part 2?     | Comment                        |
 | --- | ------------------ | ------------------ | ------------------------------ |
 | 1   | :heavy_check_mark: | :heavy_check_mark: |                                |
 | 2   | :heavy_check_mark: | :heavy_check_mark: |                                |
 | 3   | :heavy_check_mark: | :heavy_check_mark: |                                |
-| 4   | :x:                | :x:                |                                |
+| 4   | :heavy_check_mark: | :heavy_check_mark: |                                |
 | 5   | :x:                | :x:                |                                |
 | 6   | :x:                | :x:                |                                |
 | 7   | :x:                | :x:                |                                |
@@ -29,3 +28,4 @@ https://adventofcode.com/2024
 | 23  | :x:                | :x:                |                                |
 | 24  | :x:                | :x:                |                                |
 | 25  | :x:                | :x:                |                                |
+
