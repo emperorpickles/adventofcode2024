@@ -28,19 +28,6 @@ def read_input(input_file: str):
     return start, rows, cols, size
 
 
-def find_next_stop(dir, pos, blocks):
-    print(f'getting moves: {dir}, {pos}, {blocks}')
-    match dir:
-        case 'UP':
-            return next(y for y in reversed(blocks[pos[0]]) if y < pos[1]) + 1
-        case 'RIGHT':
-            return next(x for x in blocks[pos[1]] if x > pos[0]) - 1
-        case 'DOWN':
-            return next(y for y in blocks[pos[0]] if y > pos[1]) - 1
-        case 'LEFT':
-            return next(x for x in reversed(blocks[pos[1]]) if x < pos[0]) + 1
-
-
 def print_grid(size, highlights, start_position):
     rows, cols = size
     for row in range(rows):
@@ -48,60 +35,72 @@ def print_grid(size, highlights, start_position):
             if (col, row) == start_position:
                 print('S', end=' ')
             elif (col, row) in highlights:
-                print('*', end=' ')
+                print('X', end=' ')
             else:
                 print('.', end=' ')
         print()
 
 
+def find_next_stop(direction, pos, blocks):
+    print(f'getting moves: {direction}, {pos}, {blocks}')
+    match direction:
+        case 'UP':
+            return next(y for y in reversed(blocks.get(pos[0], [])) if y < pos[1]) + 1
+        case 'RIGHT':
+            return next(x for x in blocks.get(pos[1], []) if x > pos[0]) - 1
+        case 'DOWN':
+            return next(y for y in blocks.get(pos[0], []) if y > pos[1]) - 1
+        case 'LEFT':
+            return next(x for x in reversed(blocks.get(pos[1], [])) if x < pos[0]) + 1
+
+
 def part_one(start, rows, cols, size):
     '''Part 1'''
     in_bounds = True
-    dir = 'UP'
+    direction = 'UP'
     pos = list(start)
     positions = set()
     while in_bounds:
-        if dir == 'UP':
+        if direction == 'UP':
             try:
-                stop = find_next_stop(dir, pos, cols)
+                stop = find_next_stop(direction, pos, cols)
                 moves = abs(pos[1] - stop)
-                [positions.add((pos[0], pos[1] - y)) for y in range(0, moves)]
+                any(positions.add((pos[0], pos[1] - y)) for y in range(0, moves))
                 pos[1] = pos[1] - moves
-                dir = 'RIGHT'
+                direction = 'RIGHT'
             except StopIteration:
-                [positions.add((pos[0], pos[1] - y)) for y in range(0, size[1] - pos[1])]
+                any(positions.add((pos[0], pos[1] - y)) for y in range(0, pos[1] + 1))
                 in_bounds = False
-        elif dir == 'RIGHT':
+        elif direction == 'RIGHT':
             try:
-                stop = find_next_stop(dir, pos, rows)
+                stop = find_next_stop(direction, pos, rows)
                 moves = abs(pos[0] - stop)
-                [positions.add((pos[0] + x, pos[1])) for x in range(0, moves)]
+                any(positions.add((pos[0] + x, pos[1])) for x in range(0, moves))
                 pos[0] = pos[0] + moves
-                dir = 'DOWN'
+                direction = 'DOWN'
             except StopIteration:
-                [positions.add((pos[0] + x, pos[1])) for x in range(0, size[0] - pos[0])]
+                any(positions.add((pos[0] + x, pos[1])) for x in range(0, size[0] - pos[0]))
                 in_bounds = False
-        elif dir == 'DOWN':
+        elif direction == 'DOWN':
             try:
-                stop = find_next_stop(dir, pos, cols)
+                stop = find_next_stop(direction, pos, cols)
                 moves = abs(pos[1] - stop)
-                [positions.add((pos[0], pos[1] + y)) for y in range(0, moves)]
+                any(positions.add((pos[0], pos[1] + y)) for y in range(0, moves))
                 pos[1] = pos[1] + moves
-                dir = 'LEFT'
+                direction = 'LEFT'
             except StopIteration:
-                [positions.add((pos[0], pos[1] + y)) for y in range(0, size[1] - pos[1])]
+                any(positions.add((pos[0], pos[1] + y)) for y in range(0, size[1] - pos[1]))
                 in_bounds = False
-        elif dir == 'LEFT':
+        elif direction == 'LEFT':
             try:
-                stop = find_next_stop(dir, pos, rows)
+                stop = find_next_stop(direction, pos, rows)
                 moves = abs(pos[0] - stop)
-                [positions.add((pos[0] - x, pos[1])) for x in range(0, moves)]
+                any(positions.add((pos[0] - x, pos[1])) for x in range(0, moves))
                 pos[0] = pos[0] - moves
-                dir = 'UP'
+                direction = 'UP'
             except StopIteration:
-                [positions.add((pos[0] - x, pos[1])) for x in range(0, size[0] - pos[0])]
+                any(positions.add((pos[0] - x, pos[1])) for x in range(0, pos[0] + 1))
                 in_bounds = False
-    print(positions)
     print_grid(size, positions, tuple(start))
     print(f'Number of distinct moves: {len(positions)}')
 
@@ -109,4 +108,3 @@ def part_one(start, rows, cols, size):
 if __name__ == '__main__':
     input_start, input_rows, input_cols, input_size = read_input('input.txt')
     part_one(input_start, input_rows, input_cols, input_size)
-
