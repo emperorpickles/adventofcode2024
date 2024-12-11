@@ -12,9 +12,9 @@
 | 6   | :heavy_check_mark: | :x:                |                                |
 | 7   | :x:                | :x:                |                                |
 | 8   | :x:                | :x:                |                                |
-| 9   | :x:                | :x:                |                                |
+| 9   | :heavy_check_mark: | :x:                |                                |
 | 10  | :x:                | :x:                |                                |
-| 11  | :x:                | :x:                |                                |
+| 11  | :heavy_check_mark: | :x:                | Part 2 fails after 44 itrs with ~550 million stones |
 | 12  | :x:                | :x:                |                                |
 | 13  | :x:                | :x:                |                                |
 | 14  | :x:                | :x:                |                                |
