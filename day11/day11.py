@@ -2,9 +2,13 @@
 '''
 Advent of Code 2024: Day 9
 '''
+import enum
 import os
 import multiprocessing
 import time
+import numpy as np
+import cupy as cp
+from numpy._core.multiarray import dtype
 
 
 def read_input(input_file: str) -> list[int]:
@@ -38,32 +42,30 @@ def part_one(stones, blinks):
     print(f'Number of stones after {blinks} blinks: {len(stones)}')
 
 
-def process_batch(batch):
-    results = []
-    for stone in batch:
-        if stone == 0:
-            results.append(1)
-        elif len(str(stone)) % 2 == 0:
-            stone_str = str(stone)
-            midpoint = len(stone_str) // 2
-            results.extend([int(stone_str[:midpoint]), int(stone_str[midpoint:])])
-        else:
-            results.append(stone * 2024)
-    return results
+def check_stone(stone):
+    if stone == 0:
+        return [1]
+    elif len(str(stone)) % 2 == 0:
+        stone_str = str(stone)
+        midpoint = len(stone_str) // 2
+        return [int(stone_str[:midpoint]), int(stone_str[midpoint:])]
+    else:
+        return [stone * 2024]
 
 
-def part_two(stones, blinks, batch_size=100000):
+def part_two(stones, blinks):
+    stones = {stone: stones.count(stone) for stone in set(stones)}
+
     for blink in range(blinks):
-        tasks = [stones[i:i + batch_size] for i in range(0, len(stones), batch_size)]
-
-        new_stones = []
-        with multiprocessing.Pool(processes=16) as pool:
-            for batch_result in pool.imap_unordered(process_batch, tasks):
-                new_stones.extend(batch_result)
+        new_stones = {}
+        for stone in stones.keys():
+            updts = check_stone(stone)
+            for new_stone in updts:
+                new_stones.update({new_stone: stones.get(stone) + new_stones.get(new_stone, 0)})
 
         stones = new_stones
-        print(f'after {blink + 1} blinks: {len(stones)}')
-    print(f'number of stones after {blinks} blinks: {len(stones)}')
+        print(f'after {blink + 1} blinks: {sum(stones.values())}')
+    print(f'number of stones after {blinks} blinks: {sum(stones.values())}')
 
 
 if __name__ == '__main__':
