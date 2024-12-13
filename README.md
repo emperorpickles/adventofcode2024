@@ -10,7 +10,7 @@
 | 4   | :heavy_check_mark: | :heavy_check_mark: |                                |
 | 5   | :heavy_check_mark: | :heavy_check_mark: |                                |
 | 6   | :heavy_check_mark: | :x:                |                                |
-| 7   | :x:                | :x:                |                                |
+| 7   | :heavy_check_mark:                | :heavy_check_mark:                | used some help from subreddit                               |
 | 8   | :x:                | :x:                |                                |
 | 9   | :heavy_check_mark: | :x:                |                                |
 | 10  | :x:                | :x:                |                                |
