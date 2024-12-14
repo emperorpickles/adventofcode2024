@@ -11,7 +11,7 @@
 | 5   | :heavy_check_mark: | :heavy_check_mark: |                                |
 | 6   | :heavy_check_mark: | :x:                |                                |
 | 7   | :heavy_check_mark:                | :heavy_check_mark:                | used some help from subreddit                               |
-| 8   | :x:                | :x:                |                                |
+| 8   | :heavy_check_mark:                | :heavy_check_mark:                |                                |
 | 9   | :heavy_check_mark: | :x:                |                                |
 | 10  | :x:                | :x:                |                                |
 | 11  | :heavy_check_mark: | :heavy_check_mark:                | |
